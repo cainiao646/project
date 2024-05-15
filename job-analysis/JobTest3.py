@@ -1,0 +1,33 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# 读取数据
+data = pd.read_csv("job.csv")
+
+
+
+# 分别计算最低薪资小于8000元和大于8000元的城市占比
+city_salary_below_8k = data[data['最低薪资'] < 8000]['所在城市'].value_counts(normalize=True).head(20)
+city_salary_above_8k = data[data['最低薪资'] > 8000]['所在城市'].value_counts(normalize=True).head(20)
+
+# 设置中文字体为系统默认字体
+plt.rcParams['font.sans-serif'] = ['Microsoft YaHei']  # 或者您可以使用其他已安装的中文字体
+plt.rcParams['axes.unicode_minus'] = False  # 解决负号'-'显示为方块的问题
+
+# 绘制最低薪资小于8000元的城市占比图
+plt.figure(figsize=(10, 8))
+city_salary_below_8k.plot(kind='pie', autopct='%1.1f%%')
+plt.title('最低薪资小于8000元的城市占比')
+plt.ylabel('')  # 隐藏y轴标签
+
+# 显示图表
+plt.show()
+
+# 绘制最低薪资大于8000元的城市占比图
+plt.figure(figsize=(10, 8))
+city_salary_above_8k.plot(kind='pie', autopct='%1.1f%%')
+plt.title('最低薪资大于8000元的城市占比')
+plt.ylabel('')  # 隐藏y轴标签
+
+# 显示图表
+plt.show()
